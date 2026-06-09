@@ -1,0 +1,22 @@
+name: Bot 24/7
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'  # كل ساعة
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Run bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          KEYWORD: ${{ secrets.KEYWORD }}
+        run: python "New folder/bot (1).py"
